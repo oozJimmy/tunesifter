@@ -55,12 +55,20 @@
 
 <style>
     .data-group{
-    background-color: #1f0933;
-    border:.125rem solid #5e34eb;
-    border-radius: 1rem;
-    padding:0.25rem;
-    margin:2rem;
-    max-width: 900px;
-    width:auto;
+        background-color: #1f0933;
+        border: .125rem solid #5e34eb;
+        border-radius: 1rem;
+        padding: 1rem;
+        margin: 2rem;
+        max-width: 900px;
+        width: auto;
+    }
+
+    @media(min-width: 600px){
+        
+        .data-group{
+            margin-left: 0.5rem;
+            
+        }
     }
 </style>

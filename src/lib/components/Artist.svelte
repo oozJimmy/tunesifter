@@ -17,7 +17,7 @@
         border-radius: 1rem;
         padding: 0.5rem;
         margin: 0.5rem;
-        font-size: 12pt;
+        font-size: 11pt;
     }
     span{
         margin: 0.5rem;

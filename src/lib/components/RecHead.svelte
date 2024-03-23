@@ -108,20 +108,26 @@
 <style>
     .data-group{
         background-color: #1f0933;
-        border:.125rem solid #5e34eb;
+        border: .125rem solid #5e34eb;
         border-radius: 1rem;
-        padding:0.25rem;
-        margin:2rem;
+        padding: 1rem;
+        margin: 2rem;
         max-width: 900px;
-        width:auto;
+        width: auto;
+    }
+    
+    @media(min-width: 600px){
+        .data-group{
+            margin-left: 0.5rem;
+        }
     }
 
     .seed{
         background-color: #8466e8;
         border: .125rem solid #5e34eb;
         border-radius: 1rem;
-        margin:1rem;
-        padding: 0.25rem;
+        margin: 1rem;
+        padding: 0.5rem;
         box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 
     }

@@ -31,7 +31,7 @@
         border-radius: 1rem;
         padding: 0.5rem;
         margin: 0.25rem;
-        font-size: 12pt;
+        font-size: 11pt;
     }
     img{
         margin: 0.25rem;
@@ -39,11 +39,11 @@
     }
     
     span{
-        margin: 0.5rem;
+        margin: 1rem;
     }
     .grid{
         display:grid;
-        grid-template-columns: 10% 90%;
+        grid-template-columns: 15% 85%;
         align-items: center;
     }
 </style>
