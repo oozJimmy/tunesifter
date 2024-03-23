@@ -1,33 +1,40 @@
 <script lang="ts">
     import Artist from "./Artist.svelte";
     import { onMount } from "svelte";
-    import { seeds, count } from "$lib/SeedStore";
+    import { seeds, count, checkedArtistIds, idCheckboxMap } from "$lib/stores/SeedStore";
+    import { browser } from "$app/environment";
 
-    let checkedArtistIds: string[] = [];
     var artistsData: any;
     let timeRange: string = "medium_term";
+    let newSeedArtists:any[] = $seeds.artists;
     
     $: maxArtistsReached = $count >= 5;
 
     function updateArtistList(e:any, artist:any):void
     {        
         let artistId:string = artist.id;
+        let artistName: string = artist.name;
         
         if(e.target.checked){
             if(!maxArtistsReached){
-                checkedArtistIds = [...checkedArtistIds, artistId];
+                $checkedArtistIds = [...$checkedArtistIds, artistId];
                 count.set($count + 1);
+                newSeedArtists = [...newSeedArtists, {name: artistName, id: artistId}];
+                $idCheckboxMap.set(artistId, e.target);
             }
         }
         else{
-            if(checkedArtistIds.indexOf(artistId) != -1){
-                checkedArtistIds.splice(checkedArtistIds.indexOf(artistId),1);
+            const index = $checkedArtistIds.indexOf(artistId);
+            if(index != -1){
+                $checkedArtistIds.splice(index, 1);
                 count.set($count - 1);
+                newSeedArtists.splice(index, 1);
+                $idCheckboxMap.delete(artistId);
             }
         }
 
         seeds.set({
-            artists: checkedArtistIds,
+            artists: newSeedArtists,
             tracks: $seeds.tracks
         });
     }
@@ -41,11 +48,32 @@
 
 
     onMount(() => updateTopArtists());
+
+    function resetCheckboxes(){
+        if(browser){
+            let boxes = document.getElementsByClassName("seed-checkbox-artist");
+            for(let i = 0; i < boxes.length; i++){
+                let box = boxes[i] as HTMLInputElement;
+
+                if($checkedArtistIds.indexOf(box.id) != -1)
+                    box.checked = true;
+                else
+                    box.checked = false;
+            }
+        }
+    }
+
 </script>
 
     <div class="data-group">
         <h2>Your top artists:</h2>
-        <select name="time-range-dropdown" bind:value={timeRange} on:change={() => updateTopArtists()}>
+        <select name="time-range-dropdown" 
+            bind:value={timeRange} 
+            on:change={async () => {
+                await updateTopArtists();
+                resetCheckboxes();
+            }}>
+
             <option value="short_term">Short Term - 4 weeks</option>
             <option value="medium_term">Medium Term - 6 months</option>
             <option value="long_term">Long Term - all time</option>
@@ -56,7 +84,9 @@
             {#if artistsData}
                 {#each artistsData.items as artist}
                 <div class="artist-row">
-                    <input type="checkbox" disabled = {maxArtistsReached && checkedArtistIds.indexOf(artist.id) == -1} on:click={(e) => {updateArtistList(e, artist)}}/>
+                    <input type="checkbox" class="seed-checkbox-artist" id="{artist.id}"
+                    disabled = {maxArtistsReached && $checkedArtistIds.indexOf(artist.id) == -1} 
+                    on:click={(e) => {updateArtistList(e, artist)}}/>
                     <Artist {artist}/>
                 </div>
                 {/each}
@@ -72,13 +102,9 @@
         background-color: #1f0933;
         border: .125rem solid #5e34eb;
         border-radius: 1rem;
-        padding:0.25rem;
+        padding: 0.25rem;
         margin: 2rem;
-        margin-top: 0.25rem;
-        margin-bottom:0.25rem;
-        max-width: 900px;
-        font-size: 12pt;
-        width:auto;
+        width: auto;
     }
 
     input[type="checkbox"]{
@@ -92,6 +118,7 @@
 
     .artist-row{
         display:grid;
-        grid-template-columns: 2rem 50rem;
+        grid-template-columns: 5% 95%
     }
+    
 </style>

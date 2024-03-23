@@ -1,18 +1,28 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { seeds } from "$lib/SeedStore";
     import Track from "./Track.svelte";
-
-    var trackRecs:any = {};
+    
+    import { seeds } from "$lib/stores/SeedStore";
+    import { recTracks } from "$lib/stores/RecTracksStore";
 
     async function updateRecs(artistIds:string[], trackIds:string[]){
         const recsRes = await fetch(`/sift/recs?seed_artists=${artistIds.join(",")}&seed_tracks=${trackIds.join(",")}`);
         const recsJson = await recsRes.json();
 
-        trackRecs = recsJson;
+        $recTracks = recsJson.tracks;
         
-        console.log("updateRecs called");
         return recsJson;
+    }
+
+    function getSeedIds(seed:any[]): string[]
+    {
+        let ids:string[] = [];
+        for(let i = 0; i < seed.length; i++)
+        {
+            ids = [...ids, seed[i].id];
+        }
+
+        return ids;
     }
 
 </script>
@@ -27,7 +37,7 @@
         {/each}
     {/if} -->
 
-    {#await updateRecs($seeds.artists, $seeds.tracks)}
+    {#await updateRecs(getSeedIds($seeds.artists), getSeedIds($seeds.tracks))}
         <p>Waiting for recs...</p>
     {:then tracksJson}
         {#if tracksJson.tracks === undefined}

@@ -61,6 +61,14 @@
         text-align: center;
         cursor: pointer;
     }
+
+    .spot-login-button:hover{
+        background-color: white;
+    }
+
+    .spot-login-button:active{
+        background-color: darkcyan;
+    }
     #spotlogo{
         height:2rem;
         width:2rem;

@@ -1,22 +1,15 @@
 <script lang="ts">
     import { enhance } from '$app/forms';
     import type { PageData } from './$types';
+    
     import TopTracks from "$lib/components/TopTracks.svelte";
     import TopArtists from '$lib/components/TopArtists.svelte';
-    import { seeds, count } from "$lib/SeedStore";
     import RecTracks from '$lib/components/RecTracks.svelte';
+    import RecHead from '$lib/components/RecHead.svelte';
 
     export let data: PageData;
 
     const userName = data.profile.display_name;
-
-    async function makePlaylist(){
-        var res = await fetch("/sift/playlist");
-
-        if(res.status != 200) return res;
-
-        
-    }
 
 </script>
 
@@ -40,16 +33,8 @@
         <TopArtists />
     </div>
     <div id="right-col">
-        <div class="data-group">
-            <h2>Select tracks on the left</h2>
-            <h4>Artists</h4><hr>
-            <p>{$seeds.artists}</p>
-            <h4>Tracks</h4><hr>
-            <p>{$seeds.tracks}</p>
-            <h4>Count</h4><hr>
-            <p>{$count}</p>
-            <div><button on:click={() => { makePlaylist() }}>Make Playlist from Reccomendations</button></div>
-        </div>
+        <RecHead userId={data.profile.id}/>
+        
         <RecTracks />
     </div>
 </div>
@@ -82,8 +67,8 @@
         border-radius: 1rem;
         padding:0.5rem;
         margin:2rem;
-        max-width: 900px;
-        width:auto;
+        // max-width: 900px;
+        // width:auto;
     }
 
     .sift-prompt{
@@ -112,6 +97,13 @@
 
     .data-grid{
         display: grid;
-        grid-template-columns: 60rem 40rem;
+        grid-template-columns: 100%;
+    }
+
+    @media(min-width: 1000px){
+        .data-grid{ 
+            grid-template-columns: 50% 50%;
+
+        }
     }
 </style>

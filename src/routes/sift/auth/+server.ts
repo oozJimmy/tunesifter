@@ -1,24 +1,22 @@
 import { redirect } from '@sveltejs/kit';
-import { SPOT_API_ID } from '$env/static/private';
+import {} from "dotenv/config";
 
-const stateKey = "SPOT_AUTH_STATE";
-
-export function GET({cookies}){
+export function GET({url, cookies}){
     const state = generateRandomString(16);
-    cookies.set(stateKey,state,{
+    cookies.set("SPOT_AUTH_STATE", state, {
         path:'/sift/auth'
     });
     
-    redirect(307,makeSpotAuthURL(state));
+    redirect(307,makeSpotAuthURL(state, url.toString()));
 }
 
-function makeSpotAuthURL(state: string):string{
-    var scopes = 'user-read-private user-read-email user-library-read user-top-read';
+function makeSpotAuthURL(state: string, pageUrl: string): string{
+    var scopes = 'user-read-private user-read-email user-library-read user-top-read playlist-modify-public playlist-modify-private';
 
     var params = new URLSearchParams({
-        client_id: `${SPOT_API_ID}`,
+        client_id: `${process.env.SPOT_API_CLIENT_ID}`,
         response_type: 'code',
-        redirect_uri:'http://localhost:5173/sift/auth/token',
+        redirect_uri:`${pageUrl}/token`,
         state:state,
         scope:scopes
     });
