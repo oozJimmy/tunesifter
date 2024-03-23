@@ -4,5 +4,5 @@ It links to your Spotify and curates new playlists for you with the Spotify Web 
 
 The program utilizes the reactive elements of svelte to give just-in-time style API requests to live-update the reccomendations from Spotify when you change your seed tracks/artists. 
 
-#Stack
+## Stack
 Built with SvelteKit, Spotify Web API.
