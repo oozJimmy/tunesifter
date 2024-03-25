@@ -29,13 +29,6 @@
 
 <div class="data-group" id="recs">
     <h2>Reccomendations:</h2>
-    <!-- {#if !trackRecs.tracks}
-        <p>Uh oh... {trackRecs}</p>    
-    {:else}
-        {#each trackRecs.tracks as track}
-            <Track {track}/>
-        {/each}
-    {/if} -->
 
     {#await updateRecs(getSeedIds($seeds.artists), getSeedIds($seeds.tracks))}
         <p>Waiting for recs...</p>

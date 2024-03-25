@@ -44,10 +44,6 @@
     {data.ai.choices[0].message.content}</p> -->
 
 <style lang="scss">
-
-    .avatar{
-        border-radius: 5rem;
-    }
     .data-group{
         background-color: #1f0933;
         border: .125rem solid #5e34eb;

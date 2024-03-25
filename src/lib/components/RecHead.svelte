@@ -91,7 +91,7 @@
     <h4>Tracks</h4><hr>
     {#each $seeds.tracks as trackSeed}   
         <div class="seed-grid seed">
-            <p>{trackSeed.name} by {trackSeed.artists}</p>
+            <div>{trackSeed.name} by {trackSeed.artists}</div>
             <button class="remove-seed-button"on:click={() => removeEntryFromSeeds(trackSeed)}>
                 <svg fill="#FFFFFF" width="25px" height="25px" 
                     viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg">
@@ -128,7 +128,10 @@
         border-radius: 1rem;
         margin: 1rem;
         padding: 0.5rem;
+        padding-top: 0.125rem;
+        padding-bottom: 0.125rem;
         box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+        align-items: center;
 
     }
 

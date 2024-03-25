@@ -12,23 +12,20 @@
 
 <style>
     div{
-        background-color: #000000;
-        border: .125rem solid #5e34eb;
-        border-radius: 1rem;
         padding: 0.5rem;
-        margin: 0.5rem;
         font-size: 11pt;
     }
+
     span{
         margin: 0.5rem;
     }
 
     img{
-        margin:0.25rem;
-        height: 3rem;
+        margin:0.125rem;
+        height: 2rem;
     }
 
-    .grid{
+    .grid{  
         display: grid;
         grid-template-columns: 15% 85%;
         align-items: center;

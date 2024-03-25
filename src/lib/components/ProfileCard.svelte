@@ -48,4 +48,8 @@
             grid-template-columns: 20% 80%;
         }
     }
+
+    .avatar{
+        border-radius: 5rem;
+    }
 </style>

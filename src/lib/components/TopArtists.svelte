@@ -99,7 +99,7 @@
 
 <style>
     .data-group{
-        background-color: #1f0933;
+        background-color: #000000;
         border: .125rem solid #5e34eb;
         border-radius: 1rem;
         padding: 0.25rem;
@@ -108,7 +108,7 @@
     }
 
     input[type="checkbox"]{
-        margin:0.25rem;
+        margin: 0.25rem;
         justify-self: center;
     }
 
@@ -118,7 +118,15 @@
 
     .artist-row{
         display:grid;
-        grid-template-columns: 5% 95%
+        grid-template-columns: 5% 95%;
+        border-top: .001rem solid #b8aedf;
+        background-color: black;
+
+    }
+
+    select{
+        margin: 0.5rem;
+        margin-left: none;
     }
     
 </style>
