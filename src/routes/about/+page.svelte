@@ -21,6 +21,8 @@
         border: 0.125rem dashed white; 
         background-attachment: fixed;
         background-size: cover;
+        background-position: center center;
+
     }
     h1, p{
         margin-left:5%;

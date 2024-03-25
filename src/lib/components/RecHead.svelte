@@ -3,7 +3,7 @@
     import { recTracks } from "$lib/stores/RecTracksStore";
 
     export let userId: string;
-    let playlistCreated:string = "uncalled for";
+    let playlistCreated:string = "";
 
     async function requestPlaylist(){
         const urisList = extractUriStrings($recTracks);
@@ -107,11 +107,13 @@
     
     <h4>Count : <span>{$count}</span></h4>
 
-    <div><button on:click={() => requestPlaylist() }>Make Playlist from Reccomendations</button></div>
+    <button class="create-playlist-button" on:click={() => requestPlaylist() }>Create Playlist</button>
         {#if playlistCreated === "OK"}
             <div>Success! Playlist created with the name "Tunesifter List"</div>
         {:else}
-            <div>Error in creating playlist, status: {playlistCreated}</div>
+            {#if playlistCreated != ""}
+            <div>{playlistCreated}</div>
+            {/if}
         {/if}
     </div>
 <style>
@@ -154,4 +156,21 @@
         border: 0px;
         cursor: pointer;
     }
+
+    .create-playlist-button{
+        background-color:#1f0933;
+        border: 0.25rem solid #5e34eb;
+        border-radius: 1rem;
+        padding: 0.5rem;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        color: white;
+        font: monospace;
+
+    }
+
+    .create-playlist-button:active{
+        background-color: 8466e8;
+    }
+
 </style>
