@@ -1,27 +1,23 @@
 <script lang="ts">
     import spotifyLogo from '$lib/assets/spot_logo.png';
-
-    
 </script>
 
 <h2>Hello, from your friend at the end,</h2>
 <div class="container">
     <h1>James Kinsley</h1>
-    <p>I'm not sure what to say about my coding product.</p>
-    <p>I think it's secure, it may not be beautiful but they can't all be winners, eh?</p>
+    <p>It may not be beautiful but they can't all be winners, eh?</p>
 </div>
 
 <div class="container">
     <h2>The TuneSifter</h2>
-    <p>Splits your "Liked Songs" by different attributes.</p>
-    <p>Adds them to new playlists</p>
+    <p>Seeds new reccomendations by your top tracks and artists</p>
+    <p>Adds them to a new playlist</p>
     <p>And lets you go kill it</p>
     
     <a href="/sift/auth"><button class="spot-login-button" >Use with Spotify<img id="spotlogo" src="{spotifyLogo}" alt="Spotify Logo"></button></a>
 </div>
 
 <footer>Credit to "Islenia Milien for NPR", whatever that means, for the bg art. It is beautiful, Islenia, thank you.</footer>
-
 
 <style>
     .container{
@@ -39,11 +35,13 @@
         padding-top:2rem;
         padding-bottom: 2rem;
     }
+
     h1,h2,p{
         text-align:center;
         margin:0.925rem;
         color:#FFF8E7;
     }
+
     .spot-login-button{
         color:black;
         background-color: #1db954;
@@ -61,11 +59,21 @@
         text-align: center;
         cursor: pointer;
     }
+
+    .spot-login-button:hover{
+        background-color: white;
+    }
+
+    .spot-login-button:active{
+        background-color: darkcyan;
+    }
+
     #spotlogo{
         height:2rem;
         width:2rem;
         transform: translate(1rem, 0.5rem);
     }
+
     footer{
         text-align: center;
         color:#FFF8E7;

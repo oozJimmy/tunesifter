@@ -13,8 +13,7 @@ export async function GET({ url, cookies }){
         return new Response(JSON.stringify({error:"Bad URL Seeds"}),{status:400});
 
     const recsJson = await getReccomendations(accessToken, artistSeeds, trackSeeds);
-    // const recsJson = {};
     // console.log("recsJson from /sift/recs ", recsJson);
 
-    return new Response(JSON.stringify(recsJson),{headers:{"Content-Type":"application/json"}})
+    return new Response(JSON.stringify(recsJson),{headers:{"Content-Type":"application/json"}});
 }

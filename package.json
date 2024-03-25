@@ -21,6 +21,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"dotenv": "^16.4.5",
 		"openai": "^4.24.7",
 		"sass": "^1.71.0",
 		"scss": "^0.2.4"

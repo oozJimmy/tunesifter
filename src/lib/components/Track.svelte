@@ -5,10 +5,9 @@
     
     function getArtistsJoined(track:any): string {
         var artistsList:string[] = [];
+
         for(var artist of track.artists)
-        {
             artistsList = [...artistsList, artist.name];
-        }
         
         return artistsList.join(", ");
     }
@@ -17,29 +16,36 @@
 
 </script>
 
-<div>
+<div class="grid">
     <a href="{track.external_urls.spotify}">
         <img src="{track.album.images[2].url}" alt="Album art">
     </a>    
-    <span>{track.name} by {artistsJoined}</span>
-
+    <span class="track-info">{track.name} by {artistsJoined}</span>
 </div>
 
 <style>
     div{
-        background-color: #000000;
-        border:.125rem solid #5e34eb;
-        border-radius: 1rem;
-        padding: 0.25rem;
-        margin: 0.25rem;
-        max-width: 700px;
-        font-size:12pt;
-        width:auto;
-
+        padding: 0.5rem;
+        font-size: 11pt;
     }
-    img{
-        margin:0.25rem;
-        height:60%;
 
+    span{
+        margin: 0.5rem;
+    }
+
+    img{
+        margin: 0.125rem;
+        height: 2rem;
+    }
+    
+    .track-info{
+        margin: 0.5rem;
+    }
+
+    .grid{
+        display:grid;
+        grid-template-columns: 2.5rem auto;
+        /* grid-template-columns: 15% 85%; */
+        align-items: center;
     }
 </style>

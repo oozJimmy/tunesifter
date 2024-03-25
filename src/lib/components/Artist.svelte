@@ -2,7 +2,7 @@
     export let artist:any;
 </script>
 
-    <div>
+    <div class="grid">
         <a href="{artist.external_urls.spotify}">
             <img src="{artist.images[0].url}" alt="Artist">
         </a> 
@@ -12,19 +12,22 @@
 
 <style>
     div{
-        background-color: #000000;
-        border:.125rem solid #5e34eb;
-        border-radius: 1rem;
-        padding:0.5rem;
-        margin:0.25rem;
-        max-width: 800px;
-        font-size:14pt;
-        width:auto;
+        padding: 0.5rem;
+        font-size: 11pt;
+    }
+
+    span{
+        margin: 0.5rem;
     }
 
     img{
-        margin:0.25rem;
-        height:auto;
-        max-width:10%
+        margin:0.125rem;
+        height: 2rem;
+    }
+
+    .grid{  
+        display: grid;
+        grid-template-columns: 15% 85%;
+        align-items: center;
     }
 </style>

@@ -19,6 +19,6 @@ export interface SpotError{
 }
 
 export interface Seeds{
-    artists:string[],
-    tracks:string[]
+    artists:any[],
+    tracks:any[]
 }

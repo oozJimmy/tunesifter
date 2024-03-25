@@ -31,5 +31,7 @@ export async function GET({ url, cookies }):Promise<null>{
     });
 
     //To tunesifter page for front end calls back to server to get api data
+    console.log("Before /sift redir")
     redirect(307,`/sift`);
+    console.log("After /sift redir");
 };
