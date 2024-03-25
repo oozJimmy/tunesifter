@@ -112,7 +112,7 @@
         border: .125rem solid #5e34eb;
         border-radius: 1rem;
         padding: 0.5rem;
-        margin: 2rem;
+        margin: 1rem;
         width: auto;
     }
 

@@ -7,8 +7,7 @@
         {#if profile.error}
         <h1>Uh oh... {profile.error.status}: {profile.error.message}</h1>
         {:else}
-        <p>{profile.display_name} <br>{profile.country}</p>
-        <!-- <p style="text-align:right;">{tracks.total} songs saved! Uh...get help.</p> -->
+        <p>Welcome,<br><br>{profile.display_name} <br>{profile.country}</p>
         <img class="avatar" src="{profile.images[1].url}" alt="User avatar" height="100" width="100">
         {/if}
     </div>

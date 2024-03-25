@@ -23,11 +23,12 @@
     img{
         margin:0.125rem;
         height: 2rem;
+        aspect-ratio: 1;
     }
 
     .grid{  
         display: grid;
-        grid-template-columns: 15% 85%;
+        grid-template-columns: 2.5rem auto;
         align-items: center;
     }
 </style>
