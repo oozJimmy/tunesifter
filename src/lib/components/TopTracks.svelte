@@ -7,7 +7,7 @@
     let trackData: any;
     let timeRange: string = "medium_term";
     let newSeedTracks: any[] = [];
-    
+
     $: maxTracksReached = $count >= 5;
 
     function getArtistsJoined(track:any): string {
@@ -37,7 +37,8 @@
         }
         else{
             const trackIndex = $checkedTrackIds.indexOf(trackId);
-            if( trackIndex != -1){
+
+            if(trackIndex != -1){
                 $checkedTrackIds.splice(trackIndex, 1);
                 newSeedTracks.splice(trackIndex, 1);
                 count.set($count - 1);
@@ -91,7 +92,7 @@
     </select>
 
     <div class="track-grid">
-        {#if trackData}
+        {#if trackData != undefined}
             {#each trackData.items as track}
                 <div class="track-row">
                     <input type="checkbox" class="seed-checkbox-track" id="{track.id}"

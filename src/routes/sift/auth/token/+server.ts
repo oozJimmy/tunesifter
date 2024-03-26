@@ -21,17 +21,17 @@ export async function GET({ url, cookies }):Promise<null>{
 
     var tokens = await getToken(authcode) satisfies TokenResponse;
 
+    var tokenBool:string = tokens.access_token != undefined ? "true": "false";
+
     //Set cookies for tokens and positive auth response
     cookies.set("ACCESS_TOKEN",tokens.access_token,{path:"/sift"});
     cookies.set("REFRESH_TOKEN",tokens.refresh_token,{path:"/sift"});
     cookies.set("AUTHENTICATION","true",{path:"/sift"});
-    cookies.set("TOKEN_VALID","true",{
+    cookies.set("TOKEN_VALID",tokenBool,{
         path:"/sift",
         maxAge:tokens.expires_in
     });
 
-    //To tunesifter page for front end calls back to server to get api data
-    console.log("Before /sift redir")
+    //To tunesifter page (success)
     redirect(307,`/sift`);
-    console.log("After /sift redir");
 };

@@ -1,13 +1,13 @@
 import type { SpotError, TokenResponse } from "$lib/types";
 import { log } from '$lib/colorlog';
-import {} from "dotenv/config";
+import { SPOT_API_CLIENT_ID, SPOT_API_CLIENT_SECRET } from "$env/static/private";
 
 export async function getToken(authcode: string): Promise<TokenResponse>{
     //Get access token
     var response = await fetch('https://accounts.spotify.com/api/token',{
         method:"POST",
         headers:{
-            'Authorization': 'Basic ' + btoa(`${process.env.SPOT_API_CLIENT_ID}:${process.env.SPOT_API_CLIENT_SECRET}`),
+            'Authorization': 'Basic ' + btoa(`${SPOT_API_CLIENT_ID}:${SPOT_API_CLIENT_SECRET}`),
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: new URLSearchParams({
@@ -17,6 +17,8 @@ export async function getToken(authcode: string): Promise<TokenResponse>{
         })
     });
 
+    console.log("getToken: ", response);
+
     return response.json();
 }
 
@@ -24,12 +26,12 @@ export async function refreshToken(refreshToken: string){
    return (await fetch("https://accounts.spotify.com/api/token",{
         method:"POST",
         headers:{
-            'Authorization': 'Basic ' + btoa(`${process.env.SPOT_API_CLIENT_ID}:${process.env.SPOT_API_CLIENT_SECRET}`),
+            'Authorization': 'Basic ' + btoa(`${SPOT_API_CLIENT_ID}:${SPOT_API_CLIENT_SECRET}`),
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: new URLSearchParams({
             grant_type: "refresh_token",
-            client_id: `${process.env.SPOT_API_CLIENT_ID}`,
+            client_id: `${SPOT_API_CLIENT_ID}`,
             refresh_token: refreshToken
         })
     })).json();

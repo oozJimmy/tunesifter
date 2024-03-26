@@ -81,7 +81,7 @@
 
         <!-- <div>Uh oh... {artistsData.error.status}: {artistsData.error.message}</div> -->
         <div class="artist-grid">
-            {#if artistsData}
+            {#if artistsData != undefined}
                 {#each artistsData.items as artist}
                 <div class="artist-row">
                     <input type="checkbox" class="seed-checkbox-artist" id="{artist.id}"
