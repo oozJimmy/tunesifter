@@ -21,6 +21,7 @@ export async function GET({ url, cookies }):Promise<null>{
 
     var tokens = await getToken(authcode) satisfies TokenResponse;
 
+    console.log("tokens res: ", tokens);
     var tokenBool:string = tokens.access_token != undefined ? "true": "false";
 
     //Set cookies for tokens and positive auth response
