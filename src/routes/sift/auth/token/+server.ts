@@ -11,6 +11,11 @@ export async function GET({ url, cookies }):Promise<null>{
     
     var authcode = typeof code === "string" ? code : "";
 
+    //TESTING
+    console.log("state", state);
+    console.log("error", error);
+    console.log("authcode", authcode);
+    
     if(error != undefined){
         log.red(`_error from auth:\n${error}`);
         redirect(307,`/sift/auth/error?reason=${error}`);
@@ -21,7 +26,6 @@ export async function GET({ url, cookies }):Promise<null>{
 
     var tokens = await getToken(authcode) satisfies TokenResponse;
 
-    console.log("tokens res: ", tokens);
     var tokenBool:string = tokens.access_token != undefined ? "true": "false";
 
     //Set cookies for tokens and positive auth response

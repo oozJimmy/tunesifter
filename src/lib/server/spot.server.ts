@@ -17,9 +17,11 @@ export async function getToken(authcode: string): Promise<TokenResponse>{
         })
     });
 
+    //VERCEL AUTH/TOKEN DEBUGGING
     console.log("getToken: ", response);
     console.log("keys: \n client : secret", SPOT_API_CLIENT_ID, " : ", SPOT_API_CLIENT_SECRET);
     
+
     return response.json();
 }
 
