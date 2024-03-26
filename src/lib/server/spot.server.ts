@@ -11,14 +11,15 @@ export async function getToken(authcode: string): Promise<TokenResponse>{
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: new URLSearchParams({
-            redirect_uri:"http://localhost:5173/sift/auth/token",
-            grant_type:"authorization_code",
-            code:authcode
+            redirect_uri: "http://localhost:5173/sift/auth/token",
+            grant_type: "authorization_code",
+            code: authcode
         })
     });
 
     console.log("getToken: ", response);
-
+    console.log("keys: \n client : secret", SPOT_API_CLIENT_ID, " : ", SPOT_API_CLIENT_SECRET);
+    
     return response.json();
 }
 
