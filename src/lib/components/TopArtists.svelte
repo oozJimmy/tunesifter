@@ -96,7 +96,7 @@
             </div>
             {/each}
         {:else}
-            <p>Uh oh...{artistsError}</p>
+            <p>Uh oh... {artistsError.status}: {artistsError.message}</p>
         {/if}
     </div>
 
