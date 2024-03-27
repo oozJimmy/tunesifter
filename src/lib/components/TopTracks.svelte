@@ -5,6 +5,7 @@
     import { browser } from "$app/environment";
     
     let trackData: any;
+    let trackError: any;
     let timeRange: string = "medium_term";
     let newSeedTracks: any[] = [];
 
@@ -55,7 +56,12 @@
     async function updateTopTracks(){
         const res = await fetch(`/sift/top?limit=10&time_range=${timeRange}&type=tracks`);
         const data = await res.json();
-        trackData = data;
+
+        if(data.error)
+            trackError = data;
+        else
+            trackData = data;
+
         return data;
     }
 
@@ -102,7 +108,7 @@
                 </div>
             {/each}
         {:else}
-            <p>Uh oh...{trackData}</p>
+            <p>Uh oh...{trackError}</p>
         {/if}
     </div>
 </div>

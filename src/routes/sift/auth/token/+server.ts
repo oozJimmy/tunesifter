@@ -3,7 +3,7 @@ import type { SpotError, TokenResponse } from '$lib/types';
 import { getToken } from '$lib/server/spot.server';
 import { log } from '$lib/colorlog';
 
-export async function GET({ url, cookies }):Promise<null>{
+export async function GET({ url, cookies }):Promise<any>{
     //Get data from query string
     var state = url.searchParams.get('state');
     var error = url.searchParams.get('error');
@@ -16,7 +16,7 @@ export async function GET({ url, cookies }):Promise<null>{
     console.log("error", error);
     console.log("authcode", authcode);
     
-    if(error != undefined){
+    if(error != null){
         log.red(`_error from auth:\n${error}`);
         redirect(307,`/sift/auth/error?reason=${error}`);
     }
@@ -24,7 +24,7 @@ export async function GET({ url, cookies }):Promise<null>{
     if(state != cookies.get("SPOT_AUTH_STATE"))
         redirect(307,'/sift/auth/error?reason=state_mismatch');
 
-    var tokens = await getToken(authcode) satisfies TokenResponse;
+    var tokens = await getToken(authcode);
 
     var tokenBool:string = tokens.access_token != undefined ? "true": "false";
 
