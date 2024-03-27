@@ -96,7 +96,11 @@
             </div>
             {/each}
         {:else}
-            <p>Uh oh... {artistsError.status}: {artistsError.message}</p>
+            {#if artistsError != undefined}
+                <p>Uh oh... {artistsError.status}: {artistsError.message}</p>
+            {:else}
+                <p>Uh ohh... {artistsError}</p>
+            {/if}
         {/if}
     </div>
 

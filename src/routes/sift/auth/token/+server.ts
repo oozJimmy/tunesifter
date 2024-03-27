@@ -24,7 +24,7 @@ export async function GET({ url, cookies }):Promise<any>{
     if(state != cookies.get("SPOT_AUTH_STATE"))
         redirect(307,'/sift/auth/error?reason=state_mismatch');
 
-    var tokens = await getToken(authcode);
+    var tokens = await getToken(authcode, url.toString());
 
     var tokenBool:string = tokens.access_token != undefined ? "true": "false";
 

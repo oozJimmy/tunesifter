@@ -2,7 +2,7 @@ import type { SpotError, TokenResponse } from "$lib/types";
 import { log } from '$lib/colorlog';
 import { SPOT_API_CLIENT_ID, SPOT_API_CLIENT_SECRET } from "$env/static/private";
 
-export async function getToken(authcode: string): Promise<TokenResponse>{
+export async function getToken(authcode: string, pageUrl: string): Promise<TokenResponse>{
     //Get access token
     var response = await fetch('https://accounts.spotify.com/api/token',{
         method:"POST",
@@ -11,7 +11,7 @@ export async function getToken(authcode: string): Promise<TokenResponse>{
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: new URLSearchParams({
-            redirect_uri: "http://localhost:5173/sift/auth/token",
+            redirect_uri: pageUrl,
             grant_type: "authorization_code",
             code: authcode
         })
