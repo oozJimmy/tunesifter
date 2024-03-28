@@ -8,14 +8,9 @@ export async function GET({ url, cookies }):Promise<any>{
     var state = url.searchParams.get('state');
     var error = url.searchParams.get('error');
     var code = url.searchParams.get('code');
-    
     var authcode = typeof code === "string" ? code : "";
+    var baseUrl = url.toString().split('?')[0];
 
-    //TESTING
-    console.log("state", state);
-    console.log("error", error);
-    console.log("authcode", authcode);
-    
     if(error != null){
         log.red(`_error from auth:\n${error}`);
         redirect(307,`/sift/auth/error?reason=${error}`);
@@ -24,7 +19,7 @@ export async function GET({ url, cookies }):Promise<any>{
     if(state != cookies.get("SPOT_AUTH_STATE"))
         redirect(307,'/sift/auth/error?reason=state_mismatch');
 
-    var tokens = await getToken(authcode, url.toString());
+    var tokens = await getToken(authcode, baseUrl);
 
     var tokenBool:string = tokens.access_token != undefined ? "true": "false";
 

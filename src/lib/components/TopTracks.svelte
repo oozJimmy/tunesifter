@@ -109,8 +109,7 @@
             {/each}
         {:else}
             {#if trackError != undefined}
-                <p>Uh oh... {trackError.status}: {trackError.message}</p>
-            
+                <p>Uh oh... {trackError.error.status}: {trackError.error.message}</p>
             {:else}
                 <p>Uh oh... {trackError}</p>
             {/if}

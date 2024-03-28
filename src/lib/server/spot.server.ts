@@ -3,7 +3,10 @@ import { log } from '$lib/colorlog';
 import { SPOT_API_CLIENT_ID, SPOT_API_CLIENT_SECRET } from "$env/static/private";
 
 export async function getToken(authcode: string, pageUrl: string): Promise<TokenResponse>{
-    //Get access token
+    
+    //REMOVE
+    console.log("getToken redirect_uri: ", pageUrl);
+    
     var response = await fetch('https://accounts.spotify.com/api/token',{
         method:"POST",
         headers:{
@@ -16,9 +19,6 @@ export async function getToken(authcode: string, pageUrl: string): Promise<Token
             code: authcode
         })
     });
-
-    //VERCEL AUTH/TOKEN DEBUGGING
-    console.log("getToken from spot.server: ", response);    
 
     return response.json();
 }
