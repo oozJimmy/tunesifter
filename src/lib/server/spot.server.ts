@@ -7,7 +7,7 @@ export async function getToken(authcode: string, pageUrl: string): Promise<Token
     //REMOVE
     console.log("getToken redirect_uri: ", pageUrl);
     
-    var response = await fetch('https://accounts.spotify.com/api/token',{
+    var response = await fetch("https://accounts.spotify.com/api/token",{
         method:"POST",
         headers:{
             'Authorization': 'Basic ' + btoa(`${SPOT_API_CLIENT_ID}:${SPOT_API_CLIENT_SECRET}`),
@@ -82,7 +82,10 @@ export async function getReccomendations(accessToken: string,
     return recsRes.json();
 }
 
-export async function createPlaylist(accessToken: string, userId: string, playlistName: string, isPublic = false){
+export async function createPlaylist(accessToken: string, 
+                                    userId: string, 
+                                    playlistName: string,
+                                     isPublic = false){
     const reqBodyJson = JSON.stringify({
         "name": playlistName,
         "description": "Created by Tunesifter (:() ",

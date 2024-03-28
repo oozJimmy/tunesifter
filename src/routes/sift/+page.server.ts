@@ -4,7 +4,7 @@ import { log } from '$lib/colorlog';
 import type { TokenResponse, SpotError } from '$lib/types';
 
 //Import spotify and openAI custom api functions 
-import { getProfileData, getTracks, getUserTop, refreshToken, getReccomendations } from '$lib/server/spot.server';
+import { getProfileData, refreshToken } from '$lib/server/spot.server';
 import { openAIReq } from '$lib/server/openai.server';
 
 var actionsData:any = {messages:[]};
@@ -36,7 +36,7 @@ export const load:PageServerLoad = async ({ cookies }) => {
             });
             
         }else
-            console.log("ERROR REFRESHING: ",tokens.error);
+            console.log("ERROR REFRESHING: ", tokens.error);
     }
 
     log.blue(`Sift server loaded: ${new Date().toUTCString()}`);
@@ -46,7 +46,6 @@ export const load:PageServerLoad = async ({ cookies }) => {
         tokens:tokens,
         actionsData:actionsData,
         profile: await getProfileData(accessToken),
-        // tracks: await getTracks(accessToken,'https://api.spotify.com/v1/me/tracks'),
         // ai: await openAIReq(),
     };
 }
