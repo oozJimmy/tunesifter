@@ -3,10 +3,6 @@ import { log } from '$lib/colorlog';
 import { SPOT_API_CLIENT_ID, SPOT_API_CLIENT_SECRET } from "$env/static/private";
 
 export async function getToken(authcode: string, pageUrl: string): Promise<TokenResponse>{
-    
-    //REMOVE
-    console.log("getToken redirect_uri: ", pageUrl);
-    
     var response = await fetch("https://accounts.spotify.com/api/token",{
         method:"POST",
         headers:{
@@ -19,7 +15,6 @@ export async function getToken(authcode: string, pageUrl: string): Promise<Token
             code: authcode
         })
     });
-
     return response.json();
 }
 
@@ -51,8 +46,7 @@ export async function getProfileData(accessToken: string){
 }
 
 export async function getTracks(accessToken: string, url: string){
-    return (await fetch(`${url}?limit=20`,
-    {
+    return (await fetch(`${url}?limit=20`,{
         headers:{
             'Authorization':`Bearer ${accessToken}`
         }
@@ -80,8 +74,6 @@ export async function getReccomendations(accessToken: string,
             "Authorization": `Bearer ${accessToken}`
         }
     });
-
-    // console.log(recsRes.headers);
 
     return recsRes.json();
 }

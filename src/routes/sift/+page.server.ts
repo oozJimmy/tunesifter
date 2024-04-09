@@ -53,7 +53,7 @@ export const load:PageServerLoad = async ({ cookies }) => {
         */
     const profileResponse:any = await getProfileData(accessToken);
     console.log("Get profile response: ", profileResponse);
-    if(profileResponse.error != undefined && profileResponse.error.status === 401){
+    if(profileResponse.error != undefined){
         log.yellow("BAD TOKEN, REAUTHORIZING...");
         redirect(307, "/sift/auth");
     }
