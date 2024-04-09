@@ -20,35 +20,34 @@ export const load:PageServerLoad = async ({ cookies }) => {
     var accessToken:string = `${cookies.get("ACCESS_TOKEN")}`
     var refToken:string = `${cookies.get("REFRESH_TOKEN")}`;
 
-    // if(cookies.get("TOKEN_VALID") === undefined){
-    //     //Refresh token
-    //     log.yellow("Refreshing tokens...");
-    //     var tokens = await refreshToken(refToken);
+    if(cookies.get("TOKEN_VALID") === undefined){
+        //Refresh token
+        log.yellow("Refreshing tokens...");
+        var tokens = await refreshToken(refToken);
 
-    //     console.log("tokens: ", tokens);
+        console.log("tokens: ", tokens);
         
-    //     if(!tokens.error){
-    //         cookies.set("ACCESS_TOKEN",tokens.access_token,{
-    //             path:"/sift",
-    //         });
+        if(!tokens.error){
+            cookies.set("ACCESS_TOKEN",tokens.access_token,{
+                path:"/sift",
+            });
 
-    //         /*claims error
-    //             SyntaxError: Unexpected token 'U', "User not r"... is not valid JSON
-    //         */
-    //         cookies.set("TOKEN_VALID","true",{ 
-    //             path: "/sift",
-    //             maxAge: tokens.expires_in
-    //         });
+            /*claims error
+                SyntaxError: Unexpected token 'U', "User not r"... is not valid JSON
+            */
+            cookies.set("TOKEN_VALID","true",{ 
+                path: "/sift",
+                maxAge: tokens.expires_in
+            });
             
-    //     }else{
-    //         console.log("ERROR REFRESHING: ", tokens.error);
-    //     }
-    // }
+        }else{
+            console.log("ERROR REFRESHING: ", tokens.error);
+        }
+    }
 
     log.blue(`Sift server loaded: ${new Date().toUTCString()}`);
         
     return {
-        tokens:tokens,
         actionsData:actionsData,
         profile: await getProfileData(accessToken),
         // ai: await openAIReq(),
