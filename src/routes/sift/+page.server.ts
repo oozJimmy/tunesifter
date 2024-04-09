@@ -49,7 +49,10 @@ export const load:PageServerLoad = async ({ cookies }) => {
         */
     const profileResponse = await getProfileData(accessToken);
     console.log("Get profile response: ", profileResponse);
-
+    if(profileResponse.error != undefined){
+        log.yellow("BAD TOKEN, REAUTHORIZING...");
+        redirect(307, "/sift/auth");
+    }
 
     log.blue(`Sift server loaded: ${new Date().toUTCString()}`);
         
