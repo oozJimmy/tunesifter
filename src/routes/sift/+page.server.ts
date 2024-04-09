@@ -33,10 +33,7 @@ export const load:PageServerLoad = async ({ cookies }) => {
             cookies.set("ACCESS_TOKEN",tokens.access_token,{
                 path:"/sift",
             });
-
-            /*claims error
-                SyntaxError: Unexpected token 'U', "User not r"... is not valid JSON
-            */
+            
             cookies.set("TOKEN_VALID","true",{ 
                 path: "/sift",
                 maxAge: tokens.expires_in
@@ -47,7 +44,12 @@ export const load:PageServerLoad = async ({ cookies }) => {
         }
     }
 
+    /*claims error
+            SyntaxError: Unexpected token 'U', "User not r"... is not valid JSON
+        */
     const profileResponse = await getProfileData(accessToken);
+    console.log("Get profile response: ", profileResponse);
+
 
     log.blue(`Sift server loaded: ${new Date().toUTCString()}`);
         
