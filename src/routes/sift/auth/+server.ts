@@ -11,7 +11,7 @@ export function GET({url, cookies}){
 }
 
 function makeSpotAuthURL(state: string, pageUrl: string): string{
-    var scopes = 'user-read-private user-read-email user-library-read user-top-read playlist-modify-public playlist-modify-private';
+    var scopes = "user-read-private user-read-email user-top-read playlist-modify-public playlist-modify-private";
 
     console.log("AUTH redirect_uri: ", `${pageUrl}/token`);
 

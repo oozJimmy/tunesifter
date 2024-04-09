@@ -47,11 +47,13 @@ export const load:PageServerLoad = async ({ cookies }) => {
         }
     }
 
+    const profileResponse = await getProfileData(accessToken);
+
     log.blue(`Sift server loaded: ${new Date().toUTCString()}`);
         
     return {
-        actionsData:actionsData,
-        profile: await getProfileData(accessToken),
+        actionsData: actionsData,
+        profile: profileResponse.error === undefined ? profileResponse : {error: profileResponse.error},
         // ai: await openAIReq(),
     };
 }
