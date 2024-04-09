@@ -47,6 +47,7 @@ export async function getProfileData(accessToken: string){
         }
     });
     console.log("getProfileData: ", response.status, response.statusText);
+    return response.json();
 }
 
 export async function getTracks(accessToken: string, url: string){

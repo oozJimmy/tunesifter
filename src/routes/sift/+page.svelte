@@ -9,9 +9,10 @@
     import ProfileCard from '$lib/components/ProfileCard.svelte';
 
     export let data: PageData;
+    let profile:any = data.profile;
 </script>
 
-<ProfileCard profile={data.profile}/>
+<ProfileCard profile={profile}/>
 
 <div class="data-grid">
     <div id="left-col">
@@ -19,7 +20,7 @@
         <TopArtists />
     </div>
     <div id="right-col">
-        <RecHead userId={data.profile.id}/>
+        <RecHead userId={profile.id}/>
         <RecTracks />
     </div>
 </div>
