@@ -41,7 +41,8 @@ export async function getProfileData(accessToken: string){
             'Authorization':`Bearer ${accessToken}`
         }
     });
-    console.log("getProfileData: ", response.status, response.statusText);
+    console.log("getProfileData: ", response);
+
     return response.json();
 }
 
