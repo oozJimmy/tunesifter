@@ -24,23 +24,28 @@ export const load:PageServerLoad = async ({ cookies }) => {
         //Refresh token
         log.yellow("Refreshing tokens...");
         var tokens = await refreshToken(refToken);
+
+        console.log("tokens: ", tokens);
         
         if(!tokens.error){
             cookies.set("ACCESS_TOKEN",tokens.access_token,{
                 path:"/sift",
             });
 
-            cookies.set("TOKEN_VALID","true",{
-                path:"/sift",
-                maxAge:tokens.expires_in
+            /*claims error
+                SyntaxError: Unexpected token 'U', "User not r"... is not valid JSON
+            */
+            cookies.set("TOKEN_VALID","true",{ 
+                path: "/sift",
+                maxAge: tokens.expires_in
             });
             
-        }else
+        }else{
             console.log("ERROR REFRESHING: ", tokens.error);
+        }
     }
 
     log.blue(`Sift server loaded: ${new Date().toUTCString()}`);
-
         
     return {
         tokens:tokens,

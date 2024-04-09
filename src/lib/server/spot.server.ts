@@ -24,7 +24,7 @@ export async function getToken(authcode: string, pageUrl: string): Promise<Token
 }
 
 export async function refreshToken(refreshToken: string){
-   return (await fetch("https://accounts.spotify.com/api/token",{
+   const response = await fetch("https://accounts.spotify.com/api/token",{
         method:"POST",
         headers:{
             'Authorization': 'Basic ' + btoa(`${SPOT_API_CLIENT_ID}:${SPOT_API_CLIENT_SECRET}`),
@@ -35,7 +35,9 @@ export async function refreshToken(refreshToken: string){
             client_id: `${SPOT_API_CLIENT_ID}`,
             refresh_token: refreshToken
         })
-    })).json();
+    })
+
+    return response.json()
 }
 
 export async function getProfileData(accessToken: string){
