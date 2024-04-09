@@ -21,7 +21,11 @@ export const load:PageServerLoad = async ({ cookies }) => {
     var refToken:string = `${cookies.get("REFRESH_TOKEN")}`;
 
     console.log("accessToken:", accessToken);
-
+    console.log("Refresh token: ", refreshToken)
+    console.log("AUTH: ", cookies.get("AUTHENTICATION"))
+    console.log("TOKEN_VALID: ", cookies.get("TOKEN_VALID"))
+    console.log("SPOT_AUTH_STATE:", cookies.get("SPOT_AUTH_STATE"))
+    
     if(cookies.get("TOKEN_VALID") === undefined){
         //Refresh token
         log.yellow("Refreshing tokens...");
@@ -49,7 +53,7 @@ export const load:PageServerLoad = async ({ cookies }) => {
         */
     const profileResponse = await getProfileData(accessToken);
     console.log("Get profile response: ", profileResponse);
-    if(profileResponse.error != undefined){
+    if(profileResponse.error != undefined && profileResponse.error.status === 401){
         log.yellow("BAD TOKEN, REAUTHORIZING...");
         redirect(307, "/sift/auth");
     }
