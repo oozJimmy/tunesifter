@@ -20,6 +20,8 @@ export const load:PageServerLoad = async ({ cookies }) => {
     var accessToken:string = `${cookies.get("ACCESS_TOKEN")}`
     var refToken:string = `${cookies.get("REFRESH_TOKEN")}`;
 
+    console.log("accessToken:", accessToken);
+
     if(cookies.get("TOKEN_VALID") === undefined){
         //Refresh token
         log.yellow("Refreshing tokens...");
