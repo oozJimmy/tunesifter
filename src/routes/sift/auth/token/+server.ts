@@ -16,6 +16,7 @@ export async function GET({ url, cookies }):Promise<any>{
         redirect(307, `/sift/auth/error?reason=${error}`);
     }
 
+    console.log("FROM sift/auth/token: SPOT_AUTH_STATE: ", cookies.get("SPOT_AUTH_STATE"))
     if(state != cookies.get("SPOT_AUTH_STATE"))
         redirect(307, "/sift/auth/error?reason=state_mismatch");
 
