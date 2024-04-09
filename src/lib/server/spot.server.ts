@@ -41,11 +41,15 @@ export async function refreshToken(refreshToken: string){
 }
 
 export async function getProfileData(accessToken: string){
-    return (await fetch('https://api.spotify.com/v1/me',{
+    const response = await fetch('https://api.spotify.com/v1/me',{
         headers:{
             'Authorization':`Bearer ${accessToken}`
         }
-    })).json();
+    });
+
+    console.log("Get profile response: ", response.status, response.statusText);
+
+    return response.json();
 }
 
 export async function getTracks(accessToken: string, url: string){
