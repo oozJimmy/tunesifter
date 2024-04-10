@@ -42,11 +42,10 @@ export async function getProfileData(accessToken: string){
             'Authorization':`Bearer ${accessToken}`
         }
     });
-    console.log("getProfileData: ", response);
-    
-    const json = await response.json()
-    console.log("getProfileData JSON: ", json)
-    return json
+    console.log("getProfileData: ", response.status, response.statusText);
+    if(!response.ok)
+        return {error:{status:response.status, message:response.statusText}}
+    return response.json();
 }
 
 export async function getTracks(accessToken: string, url: string){
