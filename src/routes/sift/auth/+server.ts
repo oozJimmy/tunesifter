@@ -4,7 +4,7 @@ import { SPOT_API_CLIENT_ID } from "$env/static/private";
 export function GET({url, cookies}){
     const state = generateRandomString(16);
     cookies.set("SPOT_AUTH_STATE", state, {
-        path:'/sift/auth'
+        path:'/sift/auth/token'
     });
     
     redirect(307,makeSpotAuthURL(state, url.toString()));

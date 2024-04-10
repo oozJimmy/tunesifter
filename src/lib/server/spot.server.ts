@@ -1,6 +1,7 @@
 import type { SpotError, TokenResponse } from "$lib/types";
 import { log } from '$lib/colorlog';
 import { SPOT_API_CLIENT_ID, SPOT_API_CLIENT_SECRET } from "$env/static/private";
+import consumers from "stream/consumers"
 
 export async function getToken(authcode: string, pageUrl: string): Promise<TokenResponse>{
     var response = await fetch("https://accounts.spotify.com/api/token",{
@@ -42,8 +43,10 @@ export async function getProfileData(accessToken: string){
         }
     });
     console.log("getProfileData: ", response);
-
-    return response.json();
+    
+    const json = await response.json()
+    console.log("getProfileData JSON: ", json)
+    return response.json()
 }
 
 export async function getTracks(accessToken: string, url: string){

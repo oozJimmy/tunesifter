@@ -25,11 +25,6 @@
     </div>
 </div>
 
-<!-- <form method="POST" action="?/test" use:enhance>
-    <button type="submit" formaction="?/test">Test Client to server pass data</button>
-</form> 
-<p>{data.actionsData.messages}</p> -->
-
 <!-- <h6>OpenAI Msg</h6> -->
 <!-- <p>{data.ai.choices[0].message.role}:<br>
     {data.ai.choices[0].message.content}</p> -->

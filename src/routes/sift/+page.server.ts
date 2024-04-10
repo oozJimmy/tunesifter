@@ -7,8 +7,6 @@ import type { TokenResponse, SpotError } from '$lib/types';
 import { getProfileData, refreshToken } from '$lib/server/spot.server';
 import { openAIReq } from '$lib/server/openai.server';
 
-var actionsData:any = {messages:[]};
-
 export const load:PageServerLoad = async ({ cookies }) => {
     if(cookies.get("AUTHENTICATION") != "true"){
         log.yellow('REDIRECT TO AUTH...');
@@ -19,12 +17,6 @@ export const load:PageServerLoad = async ({ cookies }) => {
 
     var accessToken:string = `${cookies.get("ACCESS_TOKEN")}`
     var refToken:string = `${cookies.get("REFRESH_TOKEN")}`;
-
-    console.log("accessToken:", accessToken);
-    console.log("Refresh token: ", refToken)
-    console.log("AUTH: ", cookies.get("AUTHENTICATION"))
-    console.log("TOKEN_VALID: ", cookies.get("TOKEN_VALID"))
-    console.log("SPOT_AUTH_STATE:", cookies.get("SPOT_AUTH_STATE"))
 
     if(cookies.get("TOKEN_VALID") === undefined){
         //Refresh token
@@ -53,23 +45,15 @@ export const load:PageServerLoad = async ({ cookies }) => {
         */
     const profileResponse:any = await getProfileData(accessToken);
     console.log("Get profile response: ", profileResponse);
-    if(profileResponse.error != undefined){
-        log.yellow("BAD TOKEN, REAUTHORIZING...");
-        redirect(307, "/sift/auth");
-    }
+    // if(profileResponse.error != undefined){
+    //     log.yellow("BAD TOKEN, REAUTHORIZING...");
+    //     redirect(307, "/sift/auth");
+    // }
 
     log.blue(`Sift server loaded: ${new Date().toUTCString()}`);
         
     return {
-        actionsData: actionsData,
         profile: profileResponse.error === undefined ? profileResponse : {error: profileResponse.error},
         // ai: await openAIReq(),
     };
-}
-
-export const actions = {
-    async test() {
-        log.blue('Its alive! FROM +page.server.ts!');
-        actionsData.messages.push('And its coming back!');
-    }
 }
