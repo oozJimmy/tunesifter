@@ -15,7 +15,7 @@ export const load:PageServerLoad = async ({ cookies }) => {
     else
         log.yellow("User already authenticated");
 
-    var accessToken:string = `${cookies.get("ACCESS_TOKEN")}`
+    var accessToken:string = `${cookies.get("ACCESS_TOKEN")}`;
     var refToken:string = `${cookies.get("REFRESH_TOKEN")}`;
 
     if(cookies.get("TOKEN_VALID") === undefined){
@@ -23,9 +23,8 @@ export const load:PageServerLoad = async ({ cookies }) => {
         log.yellow("Refreshing tokens...");
         var tokens = await refreshToken(refToken);
 
-        console.log("tokens: ", tokens);
-        
         if(!tokens.error){
+            accessToken = tokens.access_token;
             cookies.set("ACCESS_TOKEN",tokens.access_token,{
                 path:"/sift",
             });

@@ -46,7 +46,7 @@ export async function getProfileData(accessToken: string){
     
     const json = await response.json()
     console.log("getProfileData JSON: ", json)
-    return response.json()
+    return json
 }
 
 export async function getTracks(accessToken: string, url: string){
