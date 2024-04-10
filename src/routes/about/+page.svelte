@@ -35,4 +35,15 @@
         margin:1rem;
         font-size:8pt;
     }
+
+    @media(max-width: 700px){
+        .container{
+            height: 35rem;
+        }
+    }
+    @media(max-width: 400px){
+        .container{
+            height: 40rem;
+        }
+    }
 </style>

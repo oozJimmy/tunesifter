@@ -19,26 +19,26 @@ export const load:PageServerLoad = async ({ cookies }) => {
     var refToken:string = `${cookies.get("REFRESH_TOKEN")}`;
 
     if(cookies.get("TOKEN_VALID") === undefined){
-        log.red("TOKEN NOT VALID REDIRECT TO AUTH");
-        redirect(307,"/sift/auth")
-        // //Refresh token
-        // log.yellow("Refreshing tokens...");
-        // var tokens = await refreshToken(refToken);
+        // log.red("TOKEN NOT VALID REDIRECT TO AUTH");
+        // redirect(307,"/sift/auth")
+        //Refresh token
+        log.yellow("Refreshing tokens...");
+        var tokens = await refreshToken(refToken);
 
-        // if(!tokens.error){
-        //     accessToken = tokens.access_token;
-        //     cookies.set("ACCESS_TOKEN",tokens.access_token,{
-        //         path:"/sift",
-        //     });
+        if(!tokens.error){
+            accessToken = tokens.access_token;
+            cookies.set("ACCESS_TOKEN",tokens.access_token,{
+                path:"/sift",
+            });
             
-        //     cookies.set("TOKEN_VALID","true",{ 
-        //         path: "/sift",
-        //         maxAge: tokens.expires_in
-        //     });
+            cookies.set("TOKEN_VALID","true",{ 
+                path: "/sift",
+                maxAge: tokens.expires_in
+            });
             
-        // }else{
-        //     console.log("ERROR REFRESHING: ", tokens.error);
-        // }
+        }else{
+            console.log("ERROR REFRESHING: ", tokens.error);
+        }
     }
 
     /*claims error
