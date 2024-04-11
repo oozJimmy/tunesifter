@@ -78,7 +78,7 @@
 </script>
 
 <div class="data-group">
-    <h2>Select tracks to base Reccomendations</h2>
+    <h2>Select tracks to base Recommendations</h2>
 
     <h4>Artists</h4><hr>
     {#each $seeds.artists as artistSeed}

@@ -10,7 +10,7 @@
 
 <div class="container">
     <h1>The TuneSifter</h1>
-    <p>Seeds new reccomendations by your top tracks and artists</p>
+    <p>Seeds new recommendations by your top tracks and artists</p>
     <p>Adds them to a new playlist</p>
     <p>And lets you go kill it</p>
     

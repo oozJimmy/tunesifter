@@ -23,7 +23,7 @@
             <h3>On the right &#40bottom on mobile&#41:</h3>
             <ul>
                 <li>Edit your seed selections</li>
-                <li>See your reccomendations</li>
+                <li>See your recommendations</li>
                 <li>Magically create a playlist on your Spotify by clicking the button</li>
             </ul>
         </ul>
