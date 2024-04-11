@@ -3,13 +3,16 @@
     import { recTracks } from "$lib/stores/RecTracksStore";
 
     export let userId: string;
-    
+    let playlistCreated:string = "";
+
     async function requestPlaylist(){
         const urisList = extractUriStrings($recTracks);
         const bodyJson = JSON.stringify({
             urisList: urisList,
             userId: userId
         });
+
+        playlistCreated = "Making your playlist...";
 
         const res = await fetch('/sift/recs/playlist',{
             method: 'POST',
@@ -19,7 +22,8 @@
                 "Allow": "application/json"
             }
         });
-
+        
+        playlistCreated = res.statusText;
         return res.json();
     }
 
@@ -74,7 +78,7 @@
 </script>
 
 <div class="data-group">
-    <h2>Select tracks to base Reccomendations</h2>
+    <h2>Select tracks to base Recommendations</h2>
 
     <h4>Artists</h4><hr>
     {#each $seeds.artists as artistSeed}
@@ -92,7 +96,7 @@
     {#each $seeds.tracks as trackSeed}   
         <div class="seed-grid seed">
             <div>{trackSeed.name} by {trackSeed.artists}</div>
-            <button class="remove-seed-button"on:click={() => removeEntryFromSeeds(trackSeed)}>
+            <button class="remove-seed-button" on:click={() => removeEntryFromSeeds(trackSeed)}>
                 <svg fill="#FFFFFF" width="25px" height="25px" 
                     viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg">
                     <path d="M202.82861,197.17188a3.99991,3.99991,0,1,1-5.65722,5.65624L128,133.65723,58.82861,202.82812a3.99991,3.99991,0,0,1-5.65722-5.65624L122.343,128,53.17139,58.82812a3.99991,3.99991,0,0,1,5.65722-5.65624L128,122.34277l69.17139-69.17089a3.99991,3.99991,0,0,1,5.65722,5.65624L133.657,128Z"/>
@@ -101,17 +105,24 @@
         </div>
     {/each}
     
-
     <h4>Count : <span>{$count}</span></h4>
-    <div><button on:click={() => requestPlaylist() }>Make Playlist from Reccomendations</button></div>
-</div>
+
+    <button class="create-playlist-button" on:click={() => requestPlaylist() }>Create Playlist</button>
+        {#if playlistCreated === "OK"}
+            <div>Success! Playlist created with the name "Tunesifter List"</div>
+        {:else}
+            {#if playlistCreated != ""}
+            <div>{playlistCreated}</div>
+            {/if}
+        {/if}
+    </div>
 <style>
     .data-group{
         background-color: #1f0933;
         border: .125rem solid #5e34eb;
         border-radius: 1rem;
         padding: 1rem;
-        margin: 2rem;
+        margin: 1rem;
         max-width: 900px;
         width: auto;
     }
@@ -145,4 +156,21 @@
         border: 0px;
         cursor: pointer;
     }
+
+    .create-playlist-button{
+        background-color:#1f0933;
+        border: 0.25rem solid #5e34eb;
+        border-radius: 1rem;
+        padding: 0.5rem;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        color: white;
+        font: monospace;
+
+    }
+
+    .create-playlist-button:active{
+        background-color: 8466e8;
+    }
+
 </style>

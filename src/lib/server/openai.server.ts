@@ -1,6 +1,6 @@
-import OpenAI from 'openAI';
-import type { Message } from '$lib/types';
-import { OPENAI_API_KEY } from '$env/static/private';
+import OpenAI from "openai";
+import type { Message } from "$lib/types";
+import { OPENAI_API_KEY } from "$env/static/private";
 
 var ai = new OpenAI({apiKey:`${process.env.OPENAI_API_KEY}`});
 export async function chat(messages:Message[]){

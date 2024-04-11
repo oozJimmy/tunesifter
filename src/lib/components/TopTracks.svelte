@@ -5,9 +5,10 @@
     import { browser } from "$app/environment";
     
     let trackData: any;
+    let trackError: any;
     let timeRange: string = "medium_term";
     let newSeedTracks: any[] = [];
-    
+
     $: maxTracksReached = $count >= 5;
 
     function getArtistsJoined(track:any): string {
@@ -37,7 +38,8 @@
         }
         else{
             const trackIndex = $checkedTrackIds.indexOf(trackId);
-            if( trackIndex != -1){
+
+            if(trackIndex != -1){
                 $checkedTrackIds.splice(trackIndex, 1);
                 newSeedTracks.splice(trackIndex, 1);
                 count.set($count - 1);
@@ -54,7 +56,12 @@
     async function updateTopTracks(){
         const res = await fetch(`/sift/top?limit=10&time_range=${timeRange}&type=tracks`);
         const data = await res.json();
-        trackData = data;
+
+        if(data.error)
+            trackError = data;
+        else
+            trackData = data;
+
         return data;
     }
 
@@ -91,7 +98,7 @@
     </select>
 
     <div class="track-grid">
-        {#if trackData}
+        {#if trackData != undefined}
             {#each trackData.items as track}
                 <div class="track-row">
                     <input type="checkbox" class="seed-checkbox-track" id="{track.id}"
@@ -101,7 +108,11 @@
                 </div>
             {/each}
         {:else}
-            <p>Uh oh...{trackData}</p>
+            {#if trackError != undefined}
+                <p>Uh oh... {trackError.error.status}: {trackError.error.message}</p>
+            {:else}
+                <p>Uh oh... {trackError}</p>
+            {/if}
         {/if}
     </div>
 </div>
@@ -112,7 +123,7 @@
         border: .125rem solid #5e34eb;
         border-radius: 1rem;
         padding: 0.5rem;
-        margin: 2rem;
+        margin: 1rem;
         width: auto;
     }
 

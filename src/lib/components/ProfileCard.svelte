@@ -7,8 +7,7 @@
         {#if profile.error}
         <h1>Uh oh... {profile.error.status}: {profile.error.message}</h1>
         {:else}
-        <p>{profile.display_name} <br>{profile.country}</p>
-        <!-- <p style="text-align:right;">{tracks.total} songs saved! Uh...get help.</p> -->
+        <p>Welcome,<br><br>{profile.display_name} <br>{profile.country}</p>
         <img class="avatar" src="{profile.images[1].url}" alt="User avatar" height="100" width="100">
         {/if}
     </div>
@@ -19,13 +18,13 @@
             <ul>
                 <li>Select up to 5 of your top tracks and artists with the checkboxes</li>
                 <li>Change the time range of tracks and artists with the dropdown menus</li>
-                <li>Click/tap the album art / artist photos to get to the corresponding Spotify webpage</li>
+                <li>Click/tap the album/artist photos to arrive at the corresponding Spotify webpage</li>
             </ul>
             <h3>On the right &#40bottom on mobile&#41:</h3>
             <ul>
-                <li>Edit your selections on the right &#40bottom on mobile&#41</li>
-                <li>See your reccomendations</li>
-                <li>Automatically create a playlist on your Spotify with the button</li>
+                <li>Edit your seed selections</li>
+                <li>See your recommendations</li>
+                <li>Magically create a playlist on your Spotify by clicking the button</li>
             </ul>
         </ul>
     </div>

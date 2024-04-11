@@ -3,14 +3,14 @@
 </script>
 
 <h2>Hello, from your friend at the end,</h2>
-<div class="container">
+<!-- <div class="container">
     <h1>James Kinsley</h1>
     <p>It may not be beautiful but they can't all be winners, eh?</p>
-</div>
+</div> -->
 
 <div class="container">
-    <h2>The TuneSifter</h2>
-    <p>Seeds new reccomendations by your top tracks and artists</p>
+    <h1>The TuneSifter</h1>
+    <p>Seeds new recommendations by your top tracks and artists</p>
     <p>Adds them to a new playlist</p>
     <p>And lets you go kill it</p>
     

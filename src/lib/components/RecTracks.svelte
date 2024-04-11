@@ -28,7 +28,7 @@
 </script>
 
 <div class="data-group" id="recs">
-    <h2>Reccomendations:</h2>
+    <h2>Recommendations:</h2>
 
     {#await updateRecs(getSeedIds($seeds.artists), getSeedIds($seeds.tracks))}
         <p>Waiting for recs...</p>
@@ -52,7 +52,7 @@
         border: .125rem solid #5e34eb;
         border-radius: 1rem;
         padding: 1rem;
-        margin: 2rem;
+        margin: 1rem;
         max-width: 900px;
         width: auto;
     }

@@ -21,6 +21,8 @@
         border: 0.125rem dashed white; 
         background-attachment: fixed;
         background-size: cover;
+        background-position: center center;
+
     }
     h1, p{
         margin-left:5%;
@@ -32,5 +34,16 @@
         color:#FFF8E7;
         margin:1rem;
         font-size:8pt;
+    }
+
+    @media(max-width: 700px){
+        .container{
+            height: 35rem;
+        }
+    }
+    @media(max-width: 400px){
+        .container{
+            height: 40rem;
+        }
     }
 </style>

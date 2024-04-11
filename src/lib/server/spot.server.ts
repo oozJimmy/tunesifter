@@ -1,52 +1,55 @@
 import type { SpotError, TokenResponse } from "$lib/types";
 import { log } from '$lib/colorlog';
-import {} from "dotenv/config";
+import { SPOT_API_CLIENT_ID, SPOT_API_CLIENT_SECRET } from "$env/static/private";
+import consumers from "stream/consumers"
 
-export async function getToken(authcode: string): Promise<TokenResponse>{
-    //Get access token
-    var response = await fetch('https://accounts.spotify.com/api/token',{
+export async function getToken(authcode: string, pageUrl: string): Promise<TokenResponse>{
+    var response = await fetch("https://accounts.spotify.com/api/token",{
         method:"POST",
         headers:{
-            'Authorization': 'Basic ' + btoa(`${process.env.SPOT_API_CLIENT_ID}:${process.env.SPOT_API_CLIENT_SECRET}`),
+            'Authorization': 'Basic ' + btoa(`${SPOT_API_CLIENT_ID}:${SPOT_API_CLIENT_SECRET}`),
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: new URLSearchParams({
-            redirect_uri:"http://localhost:5173/sift/auth/token",
-            grant_type:"authorization_code",
-            code:authcode
+            redirect_uri: pageUrl,
+            grant_type: "authorization_code",
+            code: authcode
         })
     });
-
     return response.json();
 }
 
 export async function refreshToken(refreshToken: string){
-   return (await fetch("https://accounts.spotify.com/api/token",{
+   const response = await fetch("https://accounts.spotify.com/api/token",{
         method:"POST",
         headers:{
-            'Authorization': 'Basic ' + btoa(`${process.env.SPOT_API_CLIENT_ID}:${process.env.SPOT_API_CLIENT_SECRET}`),
+            'Authorization': 'Basic ' + btoa(`${SPOT_API_CLIENT_ID}:${SPOT_API_CLIENT_SECRET}`),
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: new URLSearchParams({
             grant_type: "refresh_token",
-            client_id: `${process.env.SPOT_API_CLIENT_ID}`,
+            client_id: `${SPOT_API_CLIENT_ID}`,
             refresh_token: refreshToken
         })
-    })).json();
+    })
+
+    return response.json()
 }
 
 export async function getProfileData(accessToken: string){
-    return (await fetch('https://api.spotify.com/v1/me',
-    {
+    const response = await fetch('https://api.spotify.com/v1/me',{
         headers:{
             'Authorization':`Bearer ${accessToken}`
         }
-    })).json();
+    });
+    console.log("getProfileData: ", response.status, response.statusText);
+    if(!response.ok)
+        return {error:{status:response.status, message:response.statusText}}
+    return response.json();
 }
 
 export async function getTracks(accessToken: string, url: string){
-    return (await fetch(`${url}?limit=20`,
-    {
+    return (await fetch(`${url}?limit=20`,{
         headers:{
             'Authorization':`Bearer ${accessToken}`
         }
@@ -75,12 +78,13 @@ export async function getReccomendations(accessToken: string,
         }
     });
 
-    // console.log(recsRes.headers);
-
     return recsRes.json();
 }
 
-export async function createPlaylist(accessToken: string, userId: string, playlistName: string, isPublic = false){
+export async function createPlaylist(accessToken: string, 
+                                    userId: string, 
+                                    playlistName: string,
+                                     isPublic = false){
     const reqBodyJson = JSON.stringify({
         "name": playlistName,
         "description": "Created by Tunesifter (:() ",

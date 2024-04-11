@@ -45,7 +45,6 @@
     .grid{
         display:grid;
         grid-template-columns: 2.5rem auto;
-        /* grid-template-columns: 15% 85%; */
         align-items: center;
     }
 </style>

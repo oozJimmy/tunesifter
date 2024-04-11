@@ -4,14 +4,14 @@
     import { seeds, count, checkedArtistIds, idCheckboxMap } from "$lib/stores/SeedStore";
     import { browser } from "$app/environment";
 
-    var artistsData: any;
+    let artistsData: any;
+    let artistsError: any;
     let timeRange: string = "medium_term";
     let newSeedArtists:any[] = $seeds.artists;
     
     $: maxArtistsReached = $count >= 5;
 
-    function updateArtistList(e:any, artist:any):void
-    {        
+    function updateArtistList(e:any, artist:any):void{        
         let artistId:string = artist.id;
         let artistName: string = artist.name;
         
@@ -42,7 +42,12 @@
     async function updateTopArtists(){
         const res = await fetch(`/sift/top?limit=10&time_range=${timeRange}&type=artists`);
         const data = await res.json();
+        
+        if(data.error != undefined)
+            artistsError = data;
+        else
         artistsData = data;
+    
         return data;
     }
 
@@ -65,37 +70,41 @@
 
 </script>
 
-    <div class="data-group">
-        <h2>Your top artists:</h2>
-        <select name="time-range-dropdown" 
-            bind:value={timeRange} 
-            on:change={async () => {
-                await updateTopArtists();
-                resetCheckboxes();
-            }}>
+<div class="data-group">
+    <h2>Your top artists:</h2>
+    <select name="time-range-dropdown" 
+        bind:value={timeRange} 
+        on:change={async () => {
+            await updateTopArtists();
+            resetCheckboxes();
+        }}>
 
-            <option value="short_term">Short Term - 4 weeks</option>
-            <option value="medium_term">Medium Term - 6 months</option>
-            <option value="long_term">Long Term - all time</option>
-        </select>
+        <option value="short_term">Short Term - 4 weeks</option>
+        <option value="medium_term">Medium Term - 6 months</option>
+        <option value="long_term">Long Term - all time</option>
+    </select>
 
-        <!-- <div>Uh oh... {artistsData.error.status}: {artistsData.error.message}</div> -->
-        <div class="artist-grid">
-            {#if artistsData}
-                {#each artistsData.items as artist}
-                <div class="artist-row">
-                    <input type="checkbox" class="seed-checkbox-artist" id="{artist.id}"
-                    disabled = {maxArtistsReached && $checkedArtistIds.indexOf(artist.id) == -1} 
-                    on:click={(e) => {updateArtistList(e, artist)}}/>
-                    <Artist {artist}/>
-                </div>
-                {/each}
+    <!-- <div>Uh oh... {artistsData.error.status}: {artistsData.error.message}</div> -->
+    <div class="artist-grid">
+        {#if artistsData != undefined}
+            {#each artistsData.items as artist}
+            <div class="artist-row">
+                <input type="checkbox" class="seed-checkbox-artist" id="{artist.id}"
+                disabled = {maxArtistsReached && $checkedArtistIds.indexOf(artist.id) == -1} 
+                on:click={(e) => {updateArtistList(e, artist)}}/>
+                <Artist {artist}/>
+            </div>
+            {/each}
+        {:else}
+            {#if artistsError != undefined}
+                <p>Uh oh... {artistsError.error.status}: {artistsError.error.message}</p>
             {:else}
-                <p>Uh oh...{artistsData}</p>
+                <p>Uh ohh... {artistsError}</p>
             {/if}
-        </div>
-
+        {/if}
     </div>
+
+</div>
 
 <style>
     .data-group{
@@ -103,7 +112,7 @@
         border: .125rem solid #5e34eb;
         border-radius: 1rem;
         padding: 0.25rem;
-        margin: 2rem;
+        margin: 1rem;
         width: auto;
     }
 
