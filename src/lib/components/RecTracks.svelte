@@ -28,7 +28,7 @@
 </script>
 
 <div class="data-group" id="recs">
-    <h2>Reccomendations:</h2>
+    <h2>Recommendations:</h2>
 
     {#await updateRecs(getSeedIds($seeds.artists), getSeedIds($seeds.tracks))}
         <p>Waiting for recs...</p>
