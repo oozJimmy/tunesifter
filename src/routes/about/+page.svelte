@@ -3,7 +3,7 @@
 </script>
 
 <div class="container">
-    <h1>About TuneSifter</h1>
+    <h1>About Tunesifter</h1>
     {#each data.about as para}
         <p>{para}</p>
     {/each}

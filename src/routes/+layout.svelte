@@ -2,7 +2,7 @@
     <nav>
         <a href="/">Home</a>
         <a href="/about">About</a>
-        <a href="/sift">TuneSifter</a>
+        <a href="/sift">Tunesifter</a>
         </nav>
     <slot />
 </body>

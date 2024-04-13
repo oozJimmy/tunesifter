@@ -9,7 +9,7 @@
 </div> -->
 
 <div class="container">
-    <h1>The TuneSifter</h1>
+    <h1>The Tunesifter</h1>
     <p>Seeds new recommendations by your top tracks and artists</p>
     <p>Adds them to a new playlist</p>
     <p>And lets you go kill it</p>

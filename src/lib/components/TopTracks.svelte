@@ -84,7 +84,7 @@
 </script>
 
 <div class="data-group">
-    <h2>Your Top Tracks: </h2>
+    <h2>Your top tracks: </h2>
     <select name="time-range-dropdown" 
         bind:value={timeRange} 
         on:change={async () => {
